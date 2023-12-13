@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/DewaBiara/INVM-System/internal/user/dto"
+	"github.com/DewaBiara/Secure-DOCS/internal/user/dto"
 )
 
 type UserService interface {

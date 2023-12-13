@@ -7,6 +7,7 @@ type UserSignUpRequest struct {
 	Password string `json:"password" validate:"required"`
 	Name     string `json:"name" validate:"required"`
 	Telp     string `json:"telp" validate:"required"`
+	Role     string `json:"role" validate:"required"`
 }
 
 func (u *UserSignUpRequest) ToEntity() *entity.User {
@@ -15,6 +16,7 @@ func (u *UserSignUpRequest) ToEntity() *entity.User {
 		Password: u.Password,
 		Name:     u.Name,
 		Telp:     u.Telp,
+		Role:     u.Role,
 	}
 }
 
@@ -29,6 +31,7 @@ type UserUpdateRequest struct {
 	Name     string `json:"name"`
 	Position string `json:"position"`
 	Telp     string `json:"telp"`
+	Role     string `json:"role"`
 }
 
 func (u *UserUpdateRequest) ToEntity() *entity.User {
@@ -37,6 +40,7 @@ func (u *UserUpdateRequest) ToEntity() *entity.User {
 		Password: u.Password,
 		Name:     u.Name,
 		Telp:     u.Telp,
+		Role:     u.Role,
 	}
 }
 

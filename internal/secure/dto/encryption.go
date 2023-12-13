@@ -5,8 +5,8 @@ import (
 )
 
 type CreateEncryptionRequest struct {
-	UserID     string `json:"userid" validate:"required"`
-	Filename   string `json:"filename" validate:"required"`
+	UserID     string `json:"userid"`
+	Filename   string `json:"filename"`
 	InputFile  string `json:"inputfile"`
 	OutputFile string `json:"outputfile"`
 }

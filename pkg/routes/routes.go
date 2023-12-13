@@ -70,4 +70,9 @@ func (r *Routes) Init(e *echo.Echo, conf map[string]string) {
 	keys.GET("/:key_id/", r.keyController.GetSingleKey, jwtMiddleware)
 	keys.GET("/", r.keyController.GetPageKey)
 	keys.DELETE("/:key_id/", r.keyController.DeleteKey, jwtMiddleware)
+
+	// //Base 64
+	// base64 := v1.Group("/base64")
+	// base64.POST("/", controller.EncodeHandler)
+	// //base64.POST("/decode", controller.DecodeHandler)
 }

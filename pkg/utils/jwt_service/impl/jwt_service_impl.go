@@ -26,6 +26,7 @@ func (j *JWTServiceImpl) GenerateToken(user *entity.User) (string, error) {
 	claims := &jwt.MapClaims{
 		"user_id": user.ID,
 		"exp":     time.Now().Add(j.exp).Unix(),
+		"role":    user.Role,
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString([]byte(j.secretKey))

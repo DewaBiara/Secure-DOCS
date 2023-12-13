@@ -40,7 +40,7 @@ func (u *DecryptionRepositoryImpl) CreateDecryption(ctx context.Context, decrypt
 
 func (u *DecryptionRepositoryImpl) GetSingleDecryption(ctx context.Context, decryptionID string) (*entity.Decryption, error) {
 	var decryption entity.Decryption
-	err := u.db.WithContext(ctx).Select([]string{"id", "name", "category", "price", "stock", "description", "createdby", "updatedby"}).
+	err := u.db.WithContext(ctx).Select([]string{"id", ""}).
 		Where("id = ?", decryptionID).First(&decryption).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
