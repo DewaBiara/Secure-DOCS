@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  api:
+    image: "dewabiara/invm-system:latest"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - db_main
+    environment:
+      - ENV=production
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASS=root
+      - DB_NAME=invm_db
+      - PORT=80
+      - JWT_SECRET=ThisIsSecret
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: "dewabiara/mysql:latest"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=invm_db
+    networks:
+      - db_main
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+networks:
+  db_main:
+    driver: bridge
