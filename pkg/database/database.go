@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/DewaBiara/INVM-System/pkg/entity"
+	"github.com/DewaBiara/Secure-DOCS/pkg/entity"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -39,9 +39,8 @@ func Connect(dbHost string, dbPort string, dbUsername string, dbPassword string,
 func Migrate(db *gorm.DB) error {
 	return db.AutoMigrate(
 		&entity.User{},
-		&entity.Item{},
-		&entity.Supplier{},
-		&entity.Purchase{},
-		&entity.Sale{},
+		&entity.Encryption{},
+		&entity.Decryption{},
+		&entity.Key{},
 	)
 }

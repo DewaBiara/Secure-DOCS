@@ -5,22 +5,18 @@ import (
 )
 
 type CreateDecryptionRequest struct {
-	UserID     string `json:"userid" validate:"required"`
-	KeyID      uint   `json:"keyid" validate:"required"`
-	Filename   string `json:"filename" validate:"required"`
-	Status     string `json:"status" validate:"required"`
-	InputFile  string `json:"inputfile"`
-	OutputFile string `json:"outputfile"`
+	UserID   string `json:"userid" validate:"required"`
+	KeyID    uint   `json:"keyid" validate:"required"`
+	Filename string `json:"filename" validate:"required"`
+	Status   string `json:"status" validate:"required"`
 }
 
 func (u *CreateDecryptionRequest) ToEntity() *entity.Decryption {
 	return &entity.Decryption{
-		UserID:     u.UserID,
-		KeyID:      u.KeyID,
-		Filename:   u.Filename,
-		Status:     u.Status,
-		InputFile:  u.InputFile,
-		OutputFile: u.OutputFile,
+		UserID:   u.UserID,
+		KeyID:    u.KeyID,
+		Filename: u.Filename,
+		Status:   u.Status,
 	}
 }
 

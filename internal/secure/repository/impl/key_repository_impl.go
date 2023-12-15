@@ -40,7 +40,7 @@ func (u *KeyRepositoryImpl) CreateKey(ctx context.Context, key *entity.Key) erro
 
 func (u *KeyRepositoryImpl) GetSingleKey(ctx context.Context, keyID string) (*entity.Key, error) {
 	var key entity.Key
-	err := u.db.WithContext(ctx).Select([]string{"id", "pengirimid", "penerimaid", "encryptionid", "key"}).
+	err := u.db.WithContext(ctx).Select([]string{"id", "pengirim_id", "penerima_id", "encryption_id", "key"}).
 		Where("id = ?", keyID).First(&key).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
