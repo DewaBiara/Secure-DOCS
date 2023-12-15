@@ -56,6 +56,17 @@ func (u *KeyServiceImpl) GetPageKey(ctx context.Context, page int, limit int) (*
 	return dto.NewGetPageKeysResponse(keys), nil
 }
 
+func (u *KeyServiceImpl) GetPageKeyByPenerima(ctx context.Context, penerimaID string, page int, limit int) (*dto.GetPageKeysResponse, error) {
+	offset := (page - 1) * limit
+
+	keys, err := u.keyRepository.GetPageKeyByPenerima(ctx, penerimaID, limit, offset)
+	if err != nil {
+		return nil, err
+	}
+
+	return dto.NewGetPageKeysResponse(keys), nil
+}
+
 func (u *KeyServiceImpl) UpdateKey(ctx context.Context, keyID uint, updateKey *dto.UpdateKeyRequest) error {
 	key := updateKey.ToEntity()
 	key.ID = keyID

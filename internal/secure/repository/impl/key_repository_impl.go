@@ -40,7 +40,7 @@ func (u *KeyRepositoryImpl) CreateKey(ctx context.Context, key *entity.Key) erro
 
 func (u *KeyRepositoryImpl) GetSingleKey(ctx context.Context, keyID string) (*entity.Key, error) {
 	var key entity.Key
-	err := u.db.WithContext(ctx).Select([]string{"id", "pengirimid", "penerimaid", "encryptionid", "key"}).
+	err := u.db.WithContext(ctx).Select([]string{"id", "pengirim_id", "penerima_id", "encryption_id", "key"}).
 		Where("id = ?", keyID).First(&key).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -57,6 +57,25 @@ func (u *KeyRepositoryImpl) GetPageKey(ctx context.Context, limit int, offset in
 	var keys entity.Keys
 	err := u.db.WithContext(ctx).
 		Order("created_at DESC").
+		Offset(offset).
+		Limit(limit).
+		Find(&keys).Error
+	if err != nil {
+		return nil, err
+	}
+
+	if len(keys) == 0 {
+		return nil, utils.ErrKeyNotFound
+	}
+
+	return &keys, nil
+}
+
+func (u *KeyRepositoryImpl) GetPageKeyByPenerima(ctx context.Context, penerimaID string, limit int, offset int) (*entity.Keys, error) {
+	var keys entity.Keys
+	err := u.db.WithContext(ctx).
+		Order("created_at DESC").
+		Where("penerima_id = ?", penerimaID).
 		Offset(offset).
 		Limit(limit).
 		Find(&keys).Error

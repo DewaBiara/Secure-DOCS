@@ -2,7 +2,6 @@ package impl
 
 import (
 	"context"
-	"io/ioutil"
 
 	"github.com/DewaBiara/Secure-DOCS/internal/secure/dto"
 	"github.com/DewaBiara/Secure-DOCS/internal/secure/repository"
@@ -14,34 +13,23 @@ import (
 type (
 	EncryptionServiceImpl struct {
 		encryptionRepository repository.EncryptionRepository
-		fileCrypter          aes.FileCrypter
+		crypter              aes.AESFileCrypter
 	}
 )
 
-func NewEncryptionServiceImpl(encryptionRepository repository.EncryptionRepository, fileCrypter aes.FileCrypter) service.EncryptionService {
+func NewEncryptionServiceImpl(encryptionRepository repository.EncryptionRepository, crypter aes.AESFileCrypter) service.EncryptionService {
 	return &EncryptionServiceImpl{
 		encryptionRepository: encryptionRepository,
-		fileCrypter:          fileCrypter,
+		crypter:              crypter,
 	}
 }
 
-func (u *EncryptionServiceImpl) CreateEncryption(ctx context.Context, encryption *dto.CreateEncryptionRequest) error {
-	// Read the input file
-	inputData, err := ioutil.ReadFile(encryption.InputFile)
-	if err != nil {
-		return err
-	}
+func (u *EncryptionServiceImpl) CreateEncryption(ctx context.Context, Encryption *dto.CreateEncryptionRequest) error {
 
-	// Encrypt the file
-	err = u.fileCrypter.EncryptFile(inputData, encryption.InputFile, encryption.OutputFile)
-	if err != nil {
-		return err
-	}
+	EncryptionEntity := Encryption.ToEntity()
+	EncryptionEntity.ID = uint(uuid.New().ID())
 
-	encryptionEntity := encryption.ToEntity()
-	encryptionEntity.ID = uint(uuid.New().ID())
-
-	err = u.encryptionRepository.CreateEncryption(ctx, encryptionEntity)
+	err := u.encryptionRepository.CreateEncryption(ctx, EncryptionEntity)
 	if err != nil {
 		return err
 	}

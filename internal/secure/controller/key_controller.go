@@ -145,7 +145,48 @@ func (u *KeyController) GetPageKey(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, echo.Map{
-		"message": "success getting document",
+		"message": "success getting key",
+		"data":    key,
+		"meta": echo.Map{
+			"page":  pageInt,
+			"limit": limitInt,
+		},
+	})
+}
+
+func (u *KeyController) GetPageKeyByPenerima(c echo.Context) error {
+
+	page := c.QueryParam("page")
+	if page == "" {
+		page = "1"
+	}
+	pageInt, err := strconv.ParseInt(page, 10, 64)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, utils.ErrInvalidNumber.Error())
+	}
+
+	limit := c.QueryParam("limit")
+	if limit == "" {
+		limit = "20"
+	}
+	limitInt, err := strconv.ParseInt(limit, 10, 64)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, utils.ErrInvalidNumber.Error())
+	}
+
+	penerimaID := c.QueryParam("penerima_id")
+
+	key, err := u.keyService.GetPageKeyByPenerima(c.Request().Context(), string(penerimaID), int(pageInt), int(limitInt))
+	if err != nil {
+		if err == utils.ErrKeyNotFound {
+			return echo.NewHTTPError(http.StatusNotFound, err.Error())
+		}
+
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, echo.Map{
+		"message": "success getting key",
 		"data":    key,
 		"meta": echo.Map{
 			"page":  pageInt,

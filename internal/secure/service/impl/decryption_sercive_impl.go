@@ -2,7 +2,6 @@ package impl
 
 import (
 	"context"
-	"io/ioutil"
 
 	"github.com/DewaBiara/Secure-DOCS/internal/secure/dto"
 	"github.com/DewaBiara/Secure-DOCS/internal/secure/repository"
@@ -25,23 +24,12 @@ func NewDecryptionServiceImpl(decryptionRepository repository.DecryptionReposito
 	}
 }
 
-func (u *DecryptionServiceImpl) CreateDecryption(ctx context.Context, decryption *dto.CreateDecryptionRequest) error {
-	// Read the input file
-	inputData, err := ioutil.ReadFile(decryption.InputFile)
-	if err != nil {
-		return err
-	}
+func (u *DecryptionServiceImpl) CreateDecryption(ctx context.Context, Decryption *dto.CreateDecryptionRequest) error {
 
-	// Decrypt the file
-	err = u.fileCrypter.DecryptFile(inputData, decryption.InputFile, decryption.OutputFile)
-	if err != nil {
-		return err
-	}
+	DecryptionEntity := Decryption.ToEntity()
+	DecryptionEntity.ID = uint(uuid.New().ID())
 
-	decryptionEntity := decryption.ToEntity()
-	decryptionEntity.ID = uint(uuid.New().ID())
-
-	err = u.decryptionRepository.CreateDecryption(ctx, decryptionEntity)
+	err := u.decryptionRepository.CreateDecryption(ctx, DecryptionEntity)
 	if err != nil {
 		return err
 	}

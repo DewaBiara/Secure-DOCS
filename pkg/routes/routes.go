@@ -65,14 +65,14 @@ func (r *Routes) Init(e *echo.Echo, conf map[string]string) {
 
 	// Keys
 	keys := v1.Group("/keys")
-	keys.POST("/", r.keyController.CreateKey)
+	keys.POST("/", r.keyController.CreateKey, jwtMiddleware)
 	keys.PUT("/", r.keyController.UpdateKey, jwtMiddleware)
 	keys.GET("/:key_id/", r.keyController.GetSingleKey, jwtMiddleware)
 	keys.GET("/", r.keyController.GetPageKey)
+	keys.GET("/bypenerima/:penerima_id/", r.keyController.GetPageKey)
 	keys.DELETE("/:key_id/", r.keyController.DeleteKey, jwtMiddleware)
 
-	// //Base 64
-	// base64 := v1.Group("/base64")
-	// base64.POST("/", controller.EncodeHandler)
-	// //base64.POST("/decode", controller.DecodeHandler)
+	base64 := v1.Group("/base64")
+	base64.POST("/encode/", secureControllerPkg.EncodeHandler)
+	base64.POST("/decode/", secureControllerPkg.DecodeHandler)
 }

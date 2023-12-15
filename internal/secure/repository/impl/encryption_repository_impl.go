@@ -40,7 +40,7 @@ func (u *EncryptionRepositoryImpl) CreateEncryption(ctx context.Context, encrypt
 
 func (u *EncryptionRepositoryImpl) GetSingleEncryption(ctx context.Context, encryptionID string) (*entity.Encryption, error) {
 	var encryption entity.Encryption
-	err := u.db.WithContext(ctx).Select([]string{"id", "userid", "keyid", "filename", "status"}).
+	err := u.db.WithContext(ctx).Select([]string{"id", "user_id", "filename"}).
 		Where("id = ?", encryptionID).First(&encryption).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {

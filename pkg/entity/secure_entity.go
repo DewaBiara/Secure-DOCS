@@ -6,10 +6,8 @@ import (
 
 type Encryption struct {
 	gorm.Model
-	UserID     string
-	Filename   string
-	InputFile  string
-	OutputFile string
+	UserID   string
+	Filename string
 }
 
 type Encryptions []Encryption
@@ -26,12 +24,10 @@ type Keys []Key
 
 type Decryption struct {
 	gorm.Model
-	UserID     string
-	KeyID      uint
-	Filename   string
-	Status     string
-	InputFile  string
-	OutputFile string
+	UserID   string
+	KeyID    uint
+	Filename string
+	Status   string
 }
 
 type Decryptions []Decryption

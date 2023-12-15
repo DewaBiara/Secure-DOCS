@@ -5,18 +5,14 @@ import (
 )
 
 type CreateEncryptionRequest struct {
-	UserID     string `json:"userid"`
-	Filename   string `json:"filename"`
-	InputFile  string `json:"inputfile"`
-	OutputFile string `json:"outputfile"`
+	UserID   string `json:"userid"`
+	Filename string `json:"filename"`
 }
 
 func (u *CreateEncryptionRequest) ToEntity() *entity.Encryption {
 	return &entity.Encryption{
-		UserID:     u.UserID,
-		Filename:   u.Filename,
-		InputFile:  u.InputFile,
-		OutputFile: u.OutputFile,
+		UserID:   u.UserID,
+		Filename: u.Filename,
 	}
 }
 

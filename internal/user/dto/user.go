@@ -29,7 +29,6 @@ type UserUpdateRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Name     string `json:"name"`
-	Position string `json:"position"`
 	Telp     string `json:"telp"`
 	Role     string `json:"role"`
 }

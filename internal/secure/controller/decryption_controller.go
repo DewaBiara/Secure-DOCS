@@ -145,7 +145,7 @@ func (u *DecryptionController) GetPageDecryption(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, echo.Map{
-		"message": "success getting document",
+		"message": "success getting decryption",
 		"data":    decryption,
 		"meta": echo.Map{
 			"page":  pageInt,

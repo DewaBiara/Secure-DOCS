@@ -11,5 +11,6 @@ type KeyRepository interface {
 	UpdateKey(ctx context.Context, key *entity.Key) error
 	GetSingleKey(ctx context.Context, keyID string) (*entity.Key, error)
 	GetPageKey(ctx context.Context, limit int, offset int) (*entity.Keys, error)
+	GetPageKeyByPenerima(ctx context.Context, penerimaID string, limit int, offset int) (*entity.Keys, error)
 	DeleteKey(ctx context.Context, keyID string) error
 }

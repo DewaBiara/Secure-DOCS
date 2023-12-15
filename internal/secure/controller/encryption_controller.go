@@ -145,7 +145,7 @@ func (u *EncryptionController) GetPageEncryption(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, echo.Map{
-		"message": "success getting document",
+		"message": "success getting encryption",
 		"data":    encryption,
 		"meta": echo.Map{
 			"page":  pageInt,
