@@ -3,7 +3,7 @@ package config
 import (
 	"os"
 
-	"github.com/DewaBiara/INVM-System/pkg/entity"
+	"github.com/DewaBiara/Secure-DOCS/pkg/entity"
 	"github.com/google/uuid"
 )
 

@@ -69,7 +69,7 @@ func (r *Routes) Init(e *echo.Echo, conf map[string]string) {
 	keys.PUT("/", r.keyController.UpdateKey, jwtMiddleware)
 	keys.GET("/:key_id/", r.keyController.GetSingleKey, jwtMiddleware)
 	keys.GET("/", r.keyController.GetPageKey)
-	keys.GET("/bypenerima/:penerima_id/", r.keyController.GetPageKey)
+	keys.GET("/bypenerima/", r.keyController.GetPageKeyByPenerima)
 	keys.DELETE("/:key_id/", r.keyController.DeleteKey, jwtMiddleware)
 
 	base64 := v1.Group("/base64")
